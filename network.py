@@ -14,3 +14,7 @@ def extract_ip_addr():
 
     return local_ip
 
+
+def convert_mask(mask):
+    return sum(bin(int(octet)).count('1') for octet in mask.split('.'))
+
