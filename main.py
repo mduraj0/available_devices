@@ -1,6 +1,6 @@
 import netifaces
 import ipaddress
-from network import extract_ip_addr, convert_mask
+from network import extract_ip_addr, convert_mask, is_reachable, is_reachable_with_ports
 
 
 class NetworkInterfaces:
@@ -30,4 +30,6 @@ netmask_as_num = convert_mask('255.255.255.0')
 all_address = ipaddress.IPv4Network(f'{ip}/{netmask_as_num}', strict=False)
 
 for address in all_address.hosts():
-    print(address)
+    address = str(address)
+    if is_reachable_with_ports(address):
+        print(address)
