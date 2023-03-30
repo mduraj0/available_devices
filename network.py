@@ -1,4 +1,5 @@
 import socket
+import sys
 
 
 def extract_ip_addr():
@@ -18,3 +19,7 @@ def extract_ip_addr():
 def convert_mask(mask):
     return sum(bin(int(octet)).count('1') for octet in mask.split('.'))
 
+
+def ping(ip_addr):
+    if sys.platform.startswith('win'):
+        arg = '-n'

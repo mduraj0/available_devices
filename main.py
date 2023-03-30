@@ -1,5 +1,6 @@
-from network import extract_ip_addr
 import netifaces
+import ipaddress
+from network import extract_ip_addr, convert_mask
 
 
 class NetworkInterfaces:
@@ -23,4 +24,10 @@ class NetworkInterfaces:
 
 ip = extract_ip_addr()
 network_interfaces = NetworkInterfaces()
-print(network_interfaces[ip])
+netmask = network_interfaces[ip]['netmask']
+netmask_as_num = convert_mask('255.255.255.0')
+
+all_address = ipaddress.IPv4Network(f'{ip}/{netmask_as_num}', strict=False)
+
+for address in all_address.hosts():
+    print(address)
